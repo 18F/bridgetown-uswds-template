@@ -1,19 +1,6 @@
-<!-- <header>
-     <img src="{{ '/images/logo.svg' | relative_url }}" alt="Logo" />
-     </header>
-
-     <nav>
-     <ul>
-     <li><a href="{{ '/' | relative_url }}">Home</a></li>
-     <li><a href="{{ '/about' | relative_url }}">About</a></li>
-     <li><a href="{{ '/posts' | relative_url }}">Posts</a></li>
-     </ul>
-     </nav> -->
-
-<!--  HI ERIC. THIS IS WHERE YOU LEFT OFF, TRYING TO LOAD AN IMAGE -->
 <header class="usa-header usa-header--extended" role="banner">
     <div class="usa-navbar">
-        {% render "logo", metadata: metadata %}
+        {% render "logo", metadata: metadata, page: page %}
         <button class="usa-menu-btn">Menu</button>
     </div>
     <nav
@@ -24,7 +11,7 @@
     >
         <div class="usa-nav__inner">
             <button class="usa-nav__close">
-                {%  static_image  material-icons/close.svg close %}
+                {%  static_image  "material-icons/close.svg" "" "close" %}
             </button>
             <ul class="usa-nav__primary usa-accordion">
                 {% for nav_item in metadata.primary_navigation %}
@@ -62,7 +49,7 @@
                 {% endfor %}
             </ul>
             <div class="usa-nav__secondary">
-                <ul class="isa-nav__secondary-links">
+                <ul class="usa-nav__secondary-links">
                     {% for nav_item in metadata.secondary_navigation %}
                         <li class="usa-nav__secondary-item">
                             <a href="{{nav_item.url | url}}">

@@ -6,12 +6,11 @@ class Builders::StaticImage < SiteBuilder
     liquid_tag :static_image_with_class, :static_image_with_class_tag, as_block: false
   end
   def static_image_tag(attributes, tag)
-    items = attributes.split()
+    items = get_arguments(attributes)
     format_image(*items)
   end
   def static_image_with_class_tag(attributes, tag)
-    items = attributes.split()
-    puts items
+    items = get_arguments(attributes)
     format_image(*items)
   end
   def format_image(src = "", cls = "", alt = "")
@@ -20,25 +19,29 @@ class Builders::StaticImage < SiteBuilder
     html += format_html_attr("class", cls) + " "
     html += format_html_attr("alt", alt)
     html += ">"
-    puts html
     html
   end
 
   def format_html_attr(name, value)
-    if value.start_with? '"' or value.start_with? "'"
-      format_html_attr(name, value[1..])
-    elsif value.end_with? "'" or value.end_with? '"'
-      format_html_attr(name, value[..-1])
+    if value.empty?
+      return "#{name}=" + '""'
+    end
+    if name == "src"
+      "#{name}=" + '"' + "#{prepend_images_dir(value)}" + '"'
     else
-      if name == "src"
-        'src="' + "#{prepend_images_dir(value)}" + '"'
-      else
-        "#{name}=" + '"' + "#{value}" + '"'
-      end
+      "#{name}=" + '"' + "#{value}" + '"'
     end
   end
 
   def prepend_images_dir(path)
     "/_bridgetown/static/images/#{path}"
+  end
+  def get_arguments(attribute_string)
+    if attribute_string.empty? or attribute_string.nil?
+      return Array.new
+    end
+    format = /(?<=")[^\"].+?(?=")/
+    r = attribute_string.scan(format)
+    return r.map { |s| s.gsub('"', '').strip }
   end
 end
