@@ -1,0 +1,41 @@
+<!-- Basic Page Needs
+     ================================================== -->
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="robots" content="noindex, nofollow" />
+
+<!-- Mobile Specific Metas
+     ================================================== -->
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Title and meta description
+     ================================================== -->
+{% capture resource_title %}{{ title | strip_html | strip_newlines }}{% endcapture %}
+<title>
+    {% if resource_title != "Index" %}
+        {{ resource_title | escape }} | {{ metadata.title | escape }}
+    {% else %}
+        {{ metadata.title | escape }}: {{ metadata.tagline | escape }}
+    {% endif %}
+</title>
+<meta property="og:title" content="{{metadata.title}}" />
+<meta name="description" content="{{metadata.description}}" />
+<meta property="og:description" content="{{metadata.description}}" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@{{metadata.twitter}}" />
+<meta name="twitter:title" content="{{metadata.title}}" />
+<meta name="twitter:description" content="{{metadata.description}}" />
+
+<meta property="og:type" content="article" />
+<link rel="canonical" href="{{ metadata.url }}" />
+<meta property="og:url" content="{{ metadata.url }}" />
+
+<link rel="stylesheet" href="{% asset_path css %}" />
+<link rel="stylesheet" href="{% asset_path css/uswds.css %}">
+<!-- {{asset_path}} -->
+<script src="{% asset_path js %}" defer></script>
+<script src="{% asset_path uswds-init.js %}"></script>
+{% live_reload_dev_js %}
