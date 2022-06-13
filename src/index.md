@@ -1,7 +1,7 @@
 ---
 # Feel free to add content and custom Front Matter to this file.
 
-layout: default
+layout: index
 ---
 
 # Welcome to your new Bridgetown website.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Your First Post on Bridgetown"
+author: Alan Smithee
 date:   2022-06-09 15:14:51 -0400
 categories: updates
 ---
